@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<launch>
+	<!-- global rosparam -->
+	<!-- <param name="use_sim_time" value="true"/> -->
+
+    <!-- main -->
+    <arg name="file_name" value="/home/amsl/catkin_ws/src/mapsaver/maps/trajectory.pcd"/>
+    <arg name="rate" value="0.1"/>
+    <node pkg="pcl_ros" type="pcd_to_pointcloud" name="pcd_to_pointcloud" args="$(arg file_name) $(arg rate)" output="screen">
+        <param name="frame_id" value="map" />
+        <remap from="/cloud_pcd" to="/point_cloud"/>
+    </node>
+    <!-- <node pkg="rviz" type="rviz" name="rviz" args="rviz -d $(find pc_transform)/config/pc_transform.rviz"/> -->
+	<node pkg="pc_transform" type="rpy_transform" name="rpy_transform" output="screen">
+	<!-- <node pkg="pc_transform" type="eular_transform" name="eular_transform" output="screen"> -->
+
+		<param name="x_m" type="double" value="0"/>
+		<param name="y_m" type="double" value="0"/>
+		<param name="z_m" type="double" value="0"/>
+		<param name="r_deg" type="double" value="0"/>
+		<param name="p_deg" type="double" value="0"/>
+        <param name="y_deg" type="double" value="0"/>
+        <!-- <remap from="/point_cloud" to="/key_pose_origin"/> -->
+	</node>
+</launch>
